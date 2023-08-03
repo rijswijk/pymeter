@@ -67,6 +67,8 @@ def process_telegram(timestamp, telegram):
                 for tag,val in tags:
                     point = point.tag(tag, val)
 
+                point = point.time(timestamp * 1000000000)
+
                 write_api.write(bucket=bucket, org=org, record=point)
     except Exception as e:
         logger.error('Failed to send data to InfluxDB ({})'.format(e))
